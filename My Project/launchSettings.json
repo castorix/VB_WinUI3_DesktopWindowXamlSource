@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "VB_WinUI3_DesktopWindowXamlSource": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

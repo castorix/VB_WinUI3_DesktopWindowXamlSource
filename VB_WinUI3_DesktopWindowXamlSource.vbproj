@@ -1,0 +1,52 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+	  <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+	  <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+	  <WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
+    <!--<StartupObject>VB_WinUI3_DesktopWindowXamlSource.Form1</StartupObject>-->
+	  <StartupObject>Sub Main</StartupObject>
+    <UseWindowsForms>true</UseWindowsForms>
+    <MyType>WindowsFormsWithCustomSubMain</MyType>
+    <ImportedNamespaces>Microsoft.UI.Xaml=False,Microsoft.UI.Xaml.Controls=False,Microsoft.UI.Xaml.Controls.AnimatedVisuals=False,Microsoft.UI.Xaml.Controls.Primitives=False,Microsoft.UI.Xaml.CustomAttributes=False,System.Data=False,System.Drawing=False,System.Windows.Forms=False,Microsoft.VisualBasic=True,System=True,System.Collections=True,System.Collections.Generic=True,System.Diagnostics=True,System.Linq=True,System.Xml.Linq=True,System.Threading.Tasks=True,VB_WinUI3_DesktopWindowXamlSource=True</ImportedNamespaces>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <ApplicationIcon>Assets\Logo-WinUI.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Import Include="Microsoft.UI.Xaml" />
+    <Import Include="Microsoft.UI.Xaml.Controls" />
+    <Import Include="Microsoft.UI.Xaml.Controls.AnimatedVisuals" />
+    <Import Include="Microsoft.UI.Xaml.Controls.Primitives" />
+    <Import Include="Microsoft.UI.Xaml.CustomAttributes" />
+    <Import Include="System.Data" />
+    <Import Include="System.Drawing" />
+    <Import Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.WinUI.Lottie" Version="8.1.240821" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.241114003" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include=".\Lottie\Lottie.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="My Project\Application.Designer.vb">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+</Project>
