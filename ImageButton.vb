@@ -136,6 +136,7 @@ Public Class ImageButton
                                                   If _isEnabled AndAlso _isPointerDown Then
                                                       _pressedInside = True
                                                       AnimateScale(0.9F)
+                                                      _container.Background = _containerBackgroundOver
                                                   ElseIf _isEnabled Then
                                                       _container.Background = _containerBackgroundOver
                                                   End If
@@ -145,6 +146,7 @@ Public Class ImageButton
                                                  If _isEnabled AndAlso _isPointerDown Then
                                                      _pressedInside = False
                                                      AnimateScale(1.0F)
+                                                     _container.Background = _containerBackground
                                                  ElseIf _isEnabled Then
                                                      _container.Background = _containerBackground
                                                  End If
@@ -174,8 +176,15 @@ Public Class ImageButton
                                                End Sub
         AddHandler _container.PointerCaptureLost, Sub(s, e)
                                                       _isPointerDown = False
-                                                      _pressedInside = False
                                                       AnimateScale(1.0F)
+                                                      If _isEnabled Then
+                                                          If _pressedInside Then
+                                                              _container.Background = _containerBackgroundOver
+                                                          Else
+                                                              _container.Background = _containerBackground
+                                                          End If
+                                                      End If
+                                                      '_pressedInside = False
                                                       'SetShadowOffset(6)
                                                   End Sub
     End Sub
@@ -214,7 +223,7 @@ Public Class ImageButton
         visual.StartAnimation("Opacity", fadeOutAnim)
     End Sub
 
-    Public Property IsEnabledButton As Boolean
+    Public Property IsEnabled As Boolean
         Get
             Return _isEnabled
         End Get

@@ -479,6 +479,7 @@ Public Class Form1
                                     End Sub
         sp.Children.Add(btnBook)
         'btnBook.ButtonLabel = "Test"
+        'btnBook.IsEnabled = False
 
         Dim btnPotion = New ImageButton(New Uri("ms-appx:///Assets/Fantasy/Potion.png"), Nothing, 100)
         btnPotion.Margin = New Thickness(10, 0, 0, 0)
