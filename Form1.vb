@@ -1,21 +1,28 @@
 ﻿Imports System.Collections.ObjectModel
+Imports System.ComponentModel
 Imports System.ComponentModel.DataAnnotations
 Imports System.IO
 Imports System.Media
 Imports System.Numerics
+Imports System.Runtime
 Imports System.Runtime.InteropServices
 Imports AnimatedVisuals
 Imports CommunityToolkit.WinUI
 Imports CommunityToolkit.WinUI.Lottie
+Imports Microsoft.Graphics.Canvas
+Imports Microsoft.Graphics.Canvas.Effects
+Imports Microsoft.Graphics.Canvas.UI.Xaml
 Imports Microsoft.UI
 Imports Microsoft.UI.Composition
 Imports Microsoft.UI.Dispatching
 Imports Microsoft.UI.Xaml.Hosting
+Imports Microsoft.UI.Xaml.Input
 Imports Microsoft.UI.Xaml.Markup
 Imports Microsoft.UI.Xaml.Media
 Imports Microsoft.UI.Xaml.Media.Imaging
 Imports Windows.Devices.Enumeration
 Imports Windows.Graphics
+Imports Windows.Graphics.Imaging
 Imports Windows.Media.Core
 Imports Windows.Media.Playback
 Imports Windows.Storage
@@ -193,6 +200,7 @@ Public Class Form1
                               .Content = "Composition 2",
                               .Icon = New SymbolIcon(Symbol.Orientation)})
 
+        m_NavigationView.SelectedItem = m_NavigationView.MenuItems(0)
         AddHandler m_NavigationView.ItemInvoked, AddressOf NavView_ItemInvoked
 
         m_ContentGrid = New Grid()
@@ -480,15 +488,19 @@ Public Class Form1
         sp.Children.Add(btnBook)
         'btnBook.ButtonLabel = "Test"
         'btnBook.IsEnabled = False
+        btnBook.ButtonBorderBrush = New SolidColorBrush(Colors.Black)
+        btnBook.ButtonBorderThickness = New Thickness(2)
 
         Dim btnPotion = New ImageButton(New Uri("ms-appx:///Assets/Fantasy/Potion.png"), Nothing, 100)
-        btnPotion.Margin = New Thickness(10, 0, 0, 0)
+                                        btnPotion.Margin = New Thickness(10, 0, 0, 0)
         btnPotion.VerticalAlignment = VerticalAlignment.Center
         AddHandler btnPotion.Clicked, Sub(s, e)
                                           m_MP.Source = m_PotionSource
                                           m_MP.Play()
                                       End Sub
         sp.Children.Add(btnPotion)
+        btnPotion.ButtonBorderBrush = New SolidColorBrush(Colors.DarkBlue)
+        btnPotion.ButtonBorderThickness = New Thickness(2)
 
         Dim btnSword = New ImageButton(New Uri("ms-appx:///Assets/Fantasy/Sword.png"), Nothing, 100)
         btnSword.Margin = New Thickness(10, 0, 0, 0)
@@ -498,6 +510,8 @@ Public Class Form1
                                          m_MP.Play()
                                      End Sub
         sp.Children.Add(btnSword)
+        btnSword.ButtonBorderBrush = New SolidColorBrush(Colors.DarkBlue)
+        btnSword.ButtonBorderThickness = New Thickness(2)
 
         Dim btnDiamond = New ImageButton(New Uri("ms-appx:///Assets/Fantasy/Diamond.png"), Nothing, 100)
         btnDiamond.Margin = New Thickness(10, 0, 0, 0)
@@ -507,6 +521,8 @@ Public Class Form1
                                            m_MP.Play()
                                        End Sub
         sp.Children.Add(btnDiamond)
+        btnDiamond.ButtonBorderBrush = New SolidColorBrush(Colors.DarkBlue)
+        btnDiamond.ButtonBorderThickness = New Thickness(2)
 
         Dim btnChestOpen = New ImageButton(New Uri("ms-appx:///Assets/Fantasy/Chest_open.png"), Nothing, 100)
         btnChestOpen.Margin = New Thickness(10, 0, 0, 0)
@@ -516,6 +532,8 @@ Public Class Form1
                                              m_MP.Play()
                                          End Sub
         sp.Children.Add(btnChestOpen)
+        btnChestOpen.ButtonBorderBrush = New SolidColorBrush(Colors.DarkBlue)
+        btnChestOpen.ButtonBorderThickness = New Thickness(2)
 
         DirectCast(Host, Panel).Children.Add(sp)
         DirectCast(Host, Grid).Background = m_LinearGradientBrush
@@ -753,6 +771,7 @@ Public Class Form1
     Private Sub Form1_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
         StopCompositionAnimation()
     End Sub
+
 End Class
 
 

@@ -13,6 +13,7 @@ Public Class ImageButton
     Inherits StackPanel
 
     Private ReadOnly _image As Image
+    Private ReadOnly _imageBorder As Border
     Private ReadOnly _textBlock As TextBlock
     Private ReadOnly _container As Grid
     Private ReadOnly _visual As Visual
@@ -115,7 +116,18 @@ Public Class ImageButton
             .HorizontalAlignment = HorizontalAlignment.Center,
             .VerticalAlignment = VerticalAlignment.Center
         }
-        _container.Children.Add(_image)
+        '_container.Children.Add(_image)
+
+        ' Create Border that wraps the Image
+        _imageBorder = New Border() With {
+            .BorderBrush = New SolidColorBrush(Colors.Transparent),
+            .BorderThickness = New Thickness(0),
+            .CornerRadius = New CornerRadius(size / 5),
+            .HorizontalAlignment = HorizontalAlignment.Stretch,
+            .VerticalAlignment = VerticalAlignment.Stretch,
+            .Child = _image
+        }
+        _container.Children.Add(_imageBorder)
 
         Me.Children.Add(_shadowHost)
 
@@ -253,4 +265,23 @@ Public Class ImageButton
             _image.Source = New BitmapImage(value)
         End Set
     End Property
+
+    Public Property ButtonBorderBrush As Brush
+        Get
+            Return _imageBorder.BorderBrush
+        End Get
+        Set(value As Brush)
+            _imageBorder.BorderBrush = value
+        End Set
+    End Property
+
+    Public Property ButtonBorderThickness As Thickness
+        Get
+            Return _imageBorder.BorderThickness
+        End Get
+        Set(value As Thickness)
+            _imageBorder.BorderThickness = value
+        End Set
+    End Property
+
 End Class

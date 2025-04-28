@@ -43,8 +43,8 @@ Friend Class Program
         ' in Namespace Microsoft.WindowsAppSDK (see MddBootstrapAutoInitializer.cs and WindowsAppSDK-VersionInfo.cs in C#)
 #If DEBUG Then
         Dim sNugetPath = NugetInfo.GetGlobalNugetPath()
-        Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("1.6.241114003", sNugetPath) ' info = (65542, "", "6000.318.2304.0")
-        'Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("1.7.250401001", sNugetPath) 'info = (65543, "", "7000.456.1632.0")
+        ' Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("1.6.241114003", sNugetPath) ' info = (65542, "", "6000.318.2304.0")
+        Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("1.7.250401001", sNugetPath) 'info = (65543, "", "7000.456.1632.0")
         AutoInitialize.AccessWindowsAppSDK(info.majorMinor, info.versionTag, info.dotQuad)
 #Else
          ' Change values in Namespace Microsoft.WindowsAppSDK

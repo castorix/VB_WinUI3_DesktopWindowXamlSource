@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.WinUI.Lottie" Version="8.1.240821" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.6.241114003" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.7.250401001" />
   </ItemGroup>
 
   <ItemGroup>
