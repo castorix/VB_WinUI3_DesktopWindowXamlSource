@@ -20,6 +20,7 @@ Imports Microsoft.UI.Xaml.Input
 Imports Microsoft.UI.Xaml.Markup
 Imports Microsoft.UI.Xaml.Media
 Imports Microsoft.UI.Xaml.Media.Imaging
+Imports Microsoft.UI.Xaml.Shapes
 Imports Windows.Devices.Enumeration
 Imports Windows.Graphics
 Imports Windows.Graphics.Imaging
@@ -244,8 +245,9 @@ Public Class Form1
         .HorizontalAlignment = Xaml.HorizontalAlignment.Center,
         .VerticalAlignment = Xaml.VerticalAlignment.Center, '.Background = New SolidColorBrush(Colors.Black),
         .AreTransportControlsEnabled = True,
-        .Source = MediaSource.CreateFromUri(New Uri("https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"))
+        .Source = MediaSource.CreateFromUri(New Uri("https://download.blender.org/apricot/trailer/sintel_trailer-1080p.mp4"))
         }
+        '.Source = MediaSource.CreateFromUri(New Uri("https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"))
 
         'Dim xamlTemplate As String = "
         '<ControlTemplate xmlns='using:Microsoft.UI.Xaml.Controls' xmlns:x='http://schemas.microsoft.com/winfx/2006/xaml' TargetType='RatingControl'>
@@ -492,7 +494,7 @@ Public Class Form1
         btnBook.ButtonBorderThickness = New Thickness(2)
 
         Dim btnPotion = New ImageButton(New Uri("ms-appx:///Assets/Fantasy/Potion.png"), Nothing, 100)
-                                        btnPotion.Margin = New Thickness(10, 0, 0, 0)
+        btnPotion.Margin = New Thickness(10, 0, 0, 0)
         btnPotion.VerticalAlignment = VerticalAlignment.Center
         AddHandler btnPotion.Clicked, Sub(s, e)
                                           m_MP.Source = m_PotionSource
@@ -544,7 +546,7 @@ Public Class Form1
     Private Function LoadImageUrisFromAssets() As List(Of Uri)
         Dim imageUris As New List(Of Uri)()
         Dim sExeDir = AppContext.BaseDirectory
-        Dim sImageFolder = Path.Combine(sExeDir, "Assets", "Landscapes")
+        Dim sImageFolder = IO.Path.Combine(sExeDir, "Assets", "Landscapes")
 
         If Directory.Exists(sImageFolder) Then
             For Each file In Directory.EnumerateFiles(sImageFolder)
@@ -773,6 +775,4 @@ Public Class Form1
     End Sub
 
 End Class
-
-
 

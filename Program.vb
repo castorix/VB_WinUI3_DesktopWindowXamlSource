@@ -44,7 +44,8 @@ Friend Class Program
 #If DEBUG Then
         Dim sNugetPath = NugetInfo.GetGlobalNugetPath()
         ' Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("1.6.241114003", sNugetPath) ' info = (65542, "", "6000.318.2304.0")
-        Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("1.7.250401001", sNugetPath) 'info = (65543, "", "7000.456.1632.0")
+        'Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("1.7.250401001", sNugetPath) 'info = (65543, "", "7000.456.1632.0")
+        Dim info = WindowsAppSDKInfo.ReadSDKJsonInfo("2.0.1", sNugetPath) 'info = (131072, "", "2.0.1.0")
         AutoInitialize.AccessWindowsAppSDK(info.majorMinor, info.versionTag, info.dotQuad)
 #Else
          ' Change values in Namespace Microsoft.WindowsAppSDK
@@ -79,22 +80,24 @@ End Class
 
 ' Copied from WindowsAppSDK-VersionInfo.cs for version 1.6.241114003
 ' C:\Users\Christian\.nuget\packages\microsoft.windowsappsdk\1.6.241114003\include\WindowsAppSDK-VersionInfo.cs
+' Copied from WindowsAppSDK-VersionInfo.cs for version 2.0.1
+' C:\Users\Christian\.nuget\packages\microsoft.windowsappsdk.runtime\2.0.1\include\WindowsAppSDK-VersionInfo.cs
 
 Namespace Microsoft.WindowsAppSDK
 
     ' Release information
     Friend Class Release
         ''' <summary>The major version of the Windows App SDK release.</summary>
-        Friend Const Major As UShort = 1
+        Friend Const Major As UShort = 2 '1
 
         ''' <summary>The minor version of the Windows App SDK release.</summary>
-        Friend Const Minor As UShort = 6
+        Friend Const Minor As UShort = 0 '6
 
         ''' <summary>The patch version of the Windows App SDK release.</summary>
-        Friend Const Patch As UShort = 0
+        Friend Const Patch As UShort = 1 '0
 
         ''' <summary>The major and minor version encoded as 0xMMMMNNNN</summary>
-        Friend Const MajorMinor As UInteger = &H10006
+        Friend Const MajorMinor As UInteger = &H20000 '&H10006
 
         ''' <summary>Channel, like "preview", or empty string for stable.</summary>
         Friend Const Channel As String = "stable"
@@ -114,40 +117,40 @@ Namespace Microsoft.WindowsAppSDK
         End Class
 
         Friend Class Version
-            Friend Const Major As UShort = 6000
-            Friend Const Minor As UShort = 318
-            Friend Const Build As UShort = 2304
+            Friend Const Major As UShort = 2 '6000
+            Friend Const Minor As UShort = 0 '318
+            Friend Const Build As UShort = 1 '2304
             Friend Const Revision As UShort = 0
-            Friend Const UInt64 As ULong = &H1770013E09000000UL
-            Friend Const DotQuadString As String = "6000.318.2304.0"
+            Friend Const UInt64 As ULong = &H2000000010000 '&H1770013E09000000UL
+            Friend Const DotQuadString As String = "2.0.1.0" '"6000.318.2304.0"
         End Class
 
         Namespace Packages
 
             Friend Class Framework
-                Friend Const PackageFamilyName As String = "Microsoft.WindowsAppRuntime.1.6_8wekyb3d8bbwe"
+                Friend Const PackageFamilyName As String = "Microsoft.WindowsAppRuntime.2_8wekyb3d8bbwe" '"Microsoft.WindowsAppRuntime.1.6_8wekyb3d8bbwe"
             End Class
 
             Friend Class Main
-                Friend Const PackageFamilyName As String = "MicrosoftCorporationII.WinAppRuntime.Main.1.6_8wekyb3d8bbwe"
+                Friend Const PackageFamilyName As String = "MicrosoftCorporationII.WinAppRuntime.Main.2_8wekyb3d8bbwe" '"MicrosoftCorporationII.WinAppRuntime.Main.1.6_8wekyb3d8bbwe"
             End Class
 
             Friend Class Singleton
-                Friend Const PackageFamilyName As String = "MicrosoftCorporationII.WinAppRuntime.Singleton_8wekyb3d8bbwe"
+                Friend Const PackageFamilyName As String = "MicrosoftCorporationII.WinAppRuntime.Singleton_8wekyb3d8bbwe" 'MicrosoftCorporationII.WinAppRuntime.Singleton_8wekyb3d8bbwe"
             End Class
 
             Namespace DDLM
 
                 Friend Class X86
-                    Friend Const PackageFamilyName As String = "Microsoft.WinAppRuntime.DDLM.6000.318.2304.0-x8_8wekyb3d8bbwe"
+                    Friend Const PackageFamilyName As String = "Microsoft.WinAppRuntime.DDLM.2.0.1.0-x8_8wekyb3d8bbwe" '"Microsoft.WinAppRuntime.DDLM.6000.318.2304.0-x8_8wekyb3d8bbwe"
                 End Class
 
                 Friend Class X64
-                    Friend Const PackageFamilyName As String = "Microsoft.WinAppRuntime.DDLM.6000.318.2304.0-x6_8wekyb3d8bbwe"
+                    Friend Const PackageFamilyName As String = "Microsoft.WinAppRuntime.DDLM.2.0.1.0-x6_8wekyb3d8bbwe" '"Microsoft.WinAppRuntime.DDLM.6000.318.2304.0-x6_8wekyb3d8bbwe"
                 End Class
 
                 Friend Class Arm64
-                    Friend Const PackageFamilyName As String = "Microsoft.WinAppRuntime.DDLM.6000.318.2304.0-a6_8wekyb3d8bbwe"
+                    Friend Const PackageFamilyName As String = "Microsoft.WinAppRuntime.DDLM.2.0.1.0-a6_8wekyb3d8bbwe" '"Microsoft.WinAppRuntime.DDLM.6000.318.2304.0-a6_8wekyb3d8bbwe"
                 End Class
 
             End Namespace
@@ -256,10 +259,16 @@ Friend Class WindowsAppSDKInfo
     Friend Shared Function ReadSDKJsonInfo(version As String, Optional sNugetPath As String = Nothing) As (majorMinor As UInteger, versionTag As String, dotQuad As String)
         Dim sUserProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)
         Dim sJSONPath As String
+        ' Changed in versions 2.x (even 1.8.x)
+        'If String.IsNullOrEmpty(sNugetPath) Then
+        '    sJSONPath = Path.Combine(sUserProfile, ".nuget", "packages", "microsoft.windowsappsdk", version, "WindowsAppSDK-VersionInfo.json")
+        'Else
+        '    sJSONPath = Path.Combine(sNugetPath, "microsoft.windowsappsdk", version, "WindowsAppSDK-VersionInfo.json")
+        'End If
         If String.IsNullOrEmpty(sNugetPath) Then
-            sJSONPath = Path.Combine(sUserProfile, ".nuget", "packages", "microsoft.windowsappsdk", version, "WindowsAppSDK-VersionInfo.json")
+            sJSONPath = Path.Combine(sUserProfile, ".nuget", "packages", "microsoft.windowsappsdk.runtime", version, "WindowsAppSDK-VersionInfo.json")
         Else
-            sJSONPath = Path.Combine(sNugetPath, "microsoft.windowsappsdk", version, "WindowsAppSDK-VersionInfo.json")
+            sJSONPath = Path.Combine(sNugetPath, "microsoft.windowsappsdk.runtime", version, "WindowsAppSDK-VersionInfo.json")
         End If
         If Not File.Exists(sJSONPath) Then
             Throw New FileNotFoundException("WindowsAppSDK-VersionInfo.json not found at: " & sJSONPath)
