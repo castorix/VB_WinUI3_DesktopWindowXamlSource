@@ -9,6 +9,7 @@ A few controls are tested + [Lottie](https://learn.microsoft.com/en-us/windows/c
 Tested with Windows App SDK
 * 1.6.241114003 
 * 1.7.250401001
+* 2.0.1
   
 For other versions, you must change version in Program.vb (see comments...)
 
